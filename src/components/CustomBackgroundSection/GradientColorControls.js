@@ -13,7 +13,7 @@ class GradientColorControls extends Component {
     }
     changeGradientAmount = (e) => {
         // console.log(e.target.value)
-        this.props.handleChangeGradientAmount(this.props.gradientName, e.target.value)
+        this.props.handleChangeGradientAmount(this.props.gradientName,(this.props.gradientName === "outer") ? e.target.value * -1 : e.target.value)
     }
     selectSolidGradientColor = (color) => {
         // console.log(color)

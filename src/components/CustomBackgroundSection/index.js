@@ -15,15 +15,16 @@ class CustomBackground extends Component {
         };
     }
     changeSelectedType = (e) => {
-        console.log(e.target.innerHTML)
-        this.setState({ selectedType: e.target.innerHTML})
+        this.setState({ selectedType: e.target.innerHTML}, 
+            () => this.props.handleChangeBackgroundType(this.state.selectedType)
+        )
     }
     selectSolidBgColor = (color) => {
         // console.log(color)
         this.props.handleChangeBgColor(color);
     }
     selectOpacityValue = (e) => {
-        this.props.handleChangeBgOpacity(e.target.value)
+        this.props.handleChangeBgOpacity(1 - e.target.value)
     }
     render() {
         return (

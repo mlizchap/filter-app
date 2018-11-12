@@ -27,17 +27,21 @@ class App extends Component {
                         amount: ""
                     },
                     outer: {
-                        color: "",
-                        amount: ""
+                        color: "rgba(208, 208, 208, 1)",
+                        amount: "80%"
                     },
-                    opacity: null
+                    opacity: .5
                 }, 
-                currentSelectedBgType: "solid"                
+                none: {
+                    color: "white",
+                    opacity: 1,
+                    blendMode: "normal"
+                },
+                currentSelectedBgType: "none"                
             },
          };
     }
     changeFilterValue = (content) => {
-        console.log(content)
         const regExp =  /^[^\(]+/; // to get text before parens (this filter name)
         const stateFilterNames = (this.state.filters.length >  0) ? this.state.filters.map(filter => regExp.exec(filter)[0]) : []
         const contentFilterName = regExp.exec(content)[0]
@@ -54,14 +58,14 @@ class App extends Component {
         }
     }
     displayPreset = (content) => {
-        console.log(content)
+        // console.log(content)
         this.setState({ 
             filters: content.filters,
             background: content.background,
-        }, () => console.log(this.state.background))
+        })
     }
     changeSolidBgColor = (content) => {
-        console.log(content)
+        // console.log(content)
         this.setState({
             background: {
                 ...this.state.background,
@@ -71,7 +75,7 @@ class App extends Component {
                 }
                 
             }
-        }, () => console.log(this.state.background))
+        })
     }
     changeSolidBgOpacity = (content) => {
         this.setState({
@@ -83,10 +87,10 @@ class App extends Component {
                 }
                 
             }
-        }, () => console.log(this.state.background))
+        })
     }
     changeSolidBlendMode = (content) => {
-        console.log(content)
+        // console.log(content)
         this.setState({ 
             background: {
                 ...this.state.background,
@@ -98,6 +102,41 @@ class App extends Component {
             }
         })
     }
+    changeGradientColor = (name, color) => {
+        // console.log(name, color)
+        this.setState({ 
+            background: {
+                ...this.state.background,
+                gradient: {
+                    ...this.state.background.gradient,
+                    [name]: {
+                        ...this.state.background.gradient[name],
+                        color: color
+                    }
+                }
+                
+            }
+        })
+    }
+    changeGradientAmount = (name, amount) => {
+        this.setState({ 
+            background: {
+                ...this.state.background,
+                gradient: {
+                    ...this.state.background.gradient,
+                    [name]: {
+                        ...this.state.background.gradient[name],
+                        amount: `${amount}%`
+                    }
+                }
+                
+            }
+        }, () => console.log(this.state.background.gradient))
+    }
+    changeBackgroundType = (selectedType) => {
+        const currentSelectedBgType = (selectedType === "Solid Color" ? "solid" : selectedType.toLowerCase())
+        this.setState({ background: {...this.state.background, currentSelectedBgType} }, () => console.log(this.state.background.currentSelectedBgType))
+    }
     render() {
         return (
             <ThemeProvider theme={theme}>
@@ -105,9 +144,8 @@ class App extends Component {
                     <div className="leftSection">
                         <ImageDisplay 
                             filters={this.state.filters} 
-                            background={this.state.background}
-                            isSolidBg={(this.state.background.currentSelectedBgType === "solid") ? true : false}
-                        />
+                            bgType={this.state.background[this.state.background.currentSelectedBgType]}
+/>
                     </div>
                     <div className="rightSection">
                         <CodeDisplay />
@@ -119,6 +157,9 @@ class App extends Component {
                             handleChangeBgOpacity={this.changeSolidBgOpacity}
                             handleChangeBgColor={this.changeSolidBgColor}
                             handleSelectBgBlendMode={this.changeSolidBlendMode}
+                            handleChangeGradientAmount={this.changeGradientAmount}
+                            handleGradientColorChange={this.changeGradientColor}
+                            handleChangeBackgroundType={this.changeBackgroundType}
                         />
                     </div>
                 </StyledApp>

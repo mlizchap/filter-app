@@ -40,7 +40,7 @@ export const presetData = [
         background: {
             solid: {
                 color: 'purple',
-                opacity: .2,
+                opacity: .5,
                 mixBlendMode: 'none'
             },
             gradient: {}

@@ -8,9 +8,9 @@ class ColorPicker extends React.Component {
   state = {
     displayColorPicker: false,
     color: {
-      r: '35',
-      g: '184',
-      b: '255',
+      r: '208',
+      g: '208',
+      b: '208',
       a: '1',
     },
   };

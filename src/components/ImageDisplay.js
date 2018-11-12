@@ -23,8 +23,10 @@ class ImageDisplay extends Component {
 
 export default ImageDisplay;
 
-const innerColor = (props) => (!_.isEmpty(props.background.gradient)) ? props.background.gradient.inner.color : null;
-const outerColor = (props) => (!_.isEmpty(props.background.gradient)) ? props.background.gradient.outer.color : null;
+const innerColor = (props) => (props.bgType && props.bgType.inner) ? props.bgType.inner.color : null;
+const outerColor = (props) =>  (props.bgType && props.bgType.outer) ? props.bgType.outer.color : null;
+const innerAmount = (props) => (props.bgType && props.bgType.inner) ? props.bgType.inner.amount : null;
+const outerAmount = (props) =>  (props.bgType && props.bgType.outer) ? props.bgType.outer.amount : null;
 
 
 
@@ -35,15 +37,15 @@ const StyledImageDisplay = styled.div`
 
     .container {
         width: 300px;
-        background: ${props => (props.background) ? props.background.solid.color : null};
-        background-image: radial-gradient(${innerColor} 20%, ${outerColor} 80%);
+        background: ${props => ((props.bgType) ? props.bgType.color : `none`)};
+        background-image: radial-gradient(${innerColor} ${innerAmount}, ${outerColor} ${outerAmount});
     }
 
     img {
         width: 100%;
         filter: ${props => props.filters};
-        opacity: ${props => (props.isSolidBg) ? (1 - props.background.solid.opacity) : (1 - props.background.gradient.opacity)};
-        mix-blend-mode: ${props => (props.isSolidBg) ? props.background.solid.blendMode : props.background.gradient.blendMode}
+        opacity: ${props => (props.bgType) ? props.bgType.opacity : 1}
+        mix-blend-mode: ${props => (props.bgType) ? props.bgType.blendMode : `normal`};
     }
 
 `
