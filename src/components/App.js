@@ -21,7 +21,10 @@ class App extends Component {
         this.setState({ currentStyle: presetInfo })
     }
     setPreset = (presetInfo) => {
-        this.setState({ savedStyle: presetInfo})
+        this.setState({ 
+            savedStyle: presetInfo,
+            currentStyle: {}
+        })
     }
     renderFilters = () => {
 
@@ -30,7 +33,8 @@ class App extends Component {
         return (Object.keys(obj).length === 0 && obj.constructor === Object) ? true : false
     }
     changeFilterValue = (content) => {
-        if (Object.keys(this.state.savedStyle).length === 0 && this.state.savedStyle.constructor === Object) {
+        console.log(this.state.currentStyle)
+        if (this.objectIsEmpty(this.state.savedStyle)) {
             //console.log("no state")
             this.setState({ 
                 savedStyle: {
@@ -41,30 +45,22 @@ class App extends Component {
             })
         } else {
             const regExp =  /^[^\(]+/; // to get text before parens (this filter name)
-            let indexToChange;
-            const filters = this.state.savedStyle.filters.map(filter => {
-                // if the filter of the slider being changed exists in state, replace the values
-                return (regExp.exec(filter)[0] === regExp.exec(content)[0]) ? content : filter
-            })
-            this.setState({ savedStyle: {...this.state.savedStyle, filters }})
-            // this.setState({ savedStyle: {}})
-            // this.state.savedStyle.filters.forEach((filter,index) => {
-            //     if (regExp.exec(filter)[0] === regExp.exec(content)[0]) {
-            //         
-            //         this.state.savedStyle.filters.map(filter => {
-            //             return ()
-            //         })
-            //     }                
-            // })
+            const stateFilterNames = this.state.savedStyle.filters.map(filter => regExp.exec(filter)[0])
+            const contentFilterName = regExp.exec(content)[0]
             
-            //const contentFilter = regExp.exec(content)[0]
-
-
-            
-            //filtersInState.includes(content)
-            // var matches = regExp.exec("before(fasdfasd)");
-            // console.log(matches[0])
-            //console.log(this.state.savedStyle.filters.includes(content))
+            // if the filter exists in the state, edit the filter
+            if (stateFilterNames.includes(contentFilterName)) {
+                const filters = this.state.savedStyle.filters.map(filter => {
+                    return (regExp.exec(filter)[0] === regExp.exec(content)[0]) ? content : filter
+                })
+                this.setState({ savedStyle: {...this.state.savedStyle, filters }})
+            } else {
+                // if the filter doesn't exists - add it
+                console.log(this.state.savedStyle.filters)
+                this.setState({ 
+                    savedStyle: { ...this.state.savedStyle,  filters: [...this.state.savedStyle.filters, content] }}, 
+                    () => console.log(this.state.savedStyle))
+            }
         }
         
     }
