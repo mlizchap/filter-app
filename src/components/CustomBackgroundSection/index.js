@@ -21,10 +21,10 @@ class CustomBackground extends Component {
     }
     selectSolidBgColor = (color) => {
         // console.log(color)
-        this.props.handleChangeBgColor(color);
+        this.props.handleChangeBackground("solid", "color", color);
     }
     selectOpacityValue = (e) => {
-        this.props.handleChangeBgOpacity(1 - e.target.value)
+        this.props.handleChangeBackground("solid", "opacity", 1 - e.target.value)
     }
     render() {
         return (
@@ -78,7 +78,7 @@ class CustomBackground extends Component {
                                         font={props => props.theme.titleFont}
                                         contentItems={blendModes}
                                         defaultValue="normal"
-                                        handleSelect={(selected) => this.props.handleSelectBgBlendMode(selected)}
+                                        handleSelect={(selected) => this.props.handleChangeBackground("solid", "blendMode", selected)}
                                     />
                                     </div>
                             </div>

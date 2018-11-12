@@ -58,52 +58,25 @@ class App extends Component {
         }
     }
     displayPreset = (content) => {
-        // console.log(content)
         this.setState({ 
             filters: content.filters,
             background: content.background,
         })
     }
-    changeSolidBgColor = (content) => {
-        // console.log(content)
+    changeBGProps = (bgType, propName, value) => {
+        console.log(bgType, propName, value)
         this.setState({
             background: {
                 ...this.state.background,
-                solid: {
-                    ...this.state.background.solid,
-                    color: content
+                [bgType]: {
+                    ...this.state.background[bgType],
+                    [propName]: [value]
                 }
-                
             }
         })
     }
-    changeSolidBgOpacity = (content) => {
-        this.setState({
-            background: {
-                ...this.state.background,
-                solid: {
-                    ...this.state.background.solid,
-                    opacity: content
-                }
-                
-            }
-        })
-    }
-    changeSolidBlendMode = (content) => {
-        // console.log(content)
-        this.setState({ 
-            background: {
-                ...this.state.background,
-                solid: {
-                    ...this.state.background.solid,
-                    blendMode: content
-                }
-                
-            }
-        })
-    }
-    changeGradientColor = (name, color) => {
-        // console.log(name, color)
+    changeGradientProps = (name, prop, value) => {
+        console.log(name, prop, value)
         this.setState({ 
             background: {
                 ...this.state.background,
@@ -111,27 +84,13 @@ class App extends Component {
                     ...this.state.background.gradient,
                     [name]: {
                         ...this.state.background.gradient[name],
-                        color: color
+                        [prop]: [value]
                     }
                 }
                 
             }
         })
-    }
-    changeGradientAmount = (name, amount) => {
-        this.setState({ 
-            background: {
-                ...this.state.background,
-                gradient: {
-                    ...this.state.background.gradient,
-                    [name]: {
-                        ...this.state.background.gradient[name],
-                        amount: `${amount}%`
-                    }
-                }
-                
-            }
-        }, () => console.log(this.state.background.gradient))
+
     }
     changeBackgroundType = (selectedType) => {
         const currentSelectedBgType = (selectedType === "Solid Color" ? "solid" : selectedType.toLowerCase())
@@ -154,11 +113,8 @@ class App extends Component {
                         />
                         <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
                         <CustomBackground 
-                            handleChangeBgOpacity={this.changeSolidBgOpacity}
-                            handleChangeBgColor={this.changeSolidBgColor}
-                            handleSelectBgBlendMode={this.changeSolidBlendMode}
-                            handleChangeGradientAmount={this.changeGradientAmount}
-                            handleGradientColorChange={this.changeGradientColor}
+                            handleChangeBackground={this.changeBGProps}
+                            handleChangeGradient={this.changeGradientProps}
                             handleChangeBackgroundType={this.changeBackgroundType}
                         />
                     </div>
