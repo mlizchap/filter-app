@@ -58,7 +58,6 @@ class App extends Component {
         }
     }
     displayPreset = (content) => {
-        console.log(content)
         this.setState({ 
             filters: content.filters,
             background: content.background,
@@ -77,7 +76,6 @@ class App extends Component {
         })
     }
     changeGradientProps = (name, prop, value) => {
-        // console.log(name, prop, value)
         this.setState({ 
             background: {
                 ...this.state.background,
@@ -90,7 +88,7 @@ class App extends Component {
                 }
                 
             }
-        })
+        }, () => console.log(this.state))
 
     }
     renderGradientCSS = () => {
@@ -100,10 +98,10 @@ class App extends Component {
     }
     changeBackgroundType = (selectedType) => {
         const currentSelectedBgType = (selectedType === "Solid Color" ? "solid" : selectedType.toLowerCase())
-        this.setState({ background: {...this.state.background, currentSelectedBgType} }, () => console.log(this.state.background.currentSelectedBgType))
+        this.setState({ background: {...this.state.background, currentSelectedBgType} })
     }
     render() {
-        (this.state.background.currentSelectedBgType === "solid") ? console.log(this.state.background.solid.color) : console.log("X")
+        // (this.state.background.currentSelectedBgType === "solid") ? console.log(this.state.background.solid.color) : console.log("X")
         return (
             <ThemeProvider theme={theme}>
                 <StyledApp>

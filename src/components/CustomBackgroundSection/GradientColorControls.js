@@ -12,17 +12,15 @@ class GradientColorControls extends Component {
         this.state = {  };
     }
     changeGradientAmount = (e) => {
-        // console.log(e.target.value)
         this.props.handleChangeGradient(this.props.gradientName, "amount", (this.props.gradientName === "outer") ? `${e.target.value * -1}%` : `${e.target.value}%`)
     }
     selectSolidGradientColor = (color) => {
-        // console.log(color)
+        console.log(this.props.gradientName)
         this.props.handleChangeGradient(this.props.gradientName, "color", color);
     }
     render() {
         return (
             <StyledGradientColorControls>
-                
                     <div className="controlRows">
                         <div><p className="controlName">{this.props.gradientName} color:</p></div>
                         <div className="colorPicker"><ColorPicker handleSelectColor={this.selectSolidGradientColor}/></div>

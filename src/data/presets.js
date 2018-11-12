@@ -6,14 +6,14 @@ const bgDefaults = {
     },
     gradient: {
         inner: {
-            color: "white",
-            amount: "0"
+            color: "black",
+            amount: "20%"
         },
         outer: {
             color: "white",
-            amount: "0"
+            amount: "80%"
         },
-        opacity: 1
+        opacity: .5
     }, 
     none: {
         color: "white",
