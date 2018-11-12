@@ -5,7 +5,10 @@ import ImageDisplay from './ImageDisplay';
 import CodeDisplay from './CodeDisplay';
 import PresetSection from './PresetSection';
 import {theme} from '../globalStyles';
-import CustomFilters from './CustomFilters'
+import CustomFilters from './CustomFilters';
+import CustomBackground from './CustomBackgroundSection';
+
+
 
 class App extends Component {
     constructor(props) {
@@ -15,7 +18,8 @@ class App extends Component {
             background: { 
                 solid: { 
                     color: "none",
-                    opacity: null
+                    opacity: .5,
+                    blendMode: "normal"
                 },
                 gradient: {
                     inner: {
@@ -27,9 +31,9 @@ class App extends Component {
                         amount: ""
                     },
                     opacity: null
-                }                
+                }, 
+                currentSelectedBgType: "solid"                
             },
-
          };
     }
     changeFilterValue = (content) => {
@@ -37,8 +41,6 @@ class App extends Component {
         const regExp =  /^[^\(]+/; // to get text before parens (this filter name)
         const stateFilterNames = (this.state.filters.length >  0) ? this.state.filters.map(filter => regExp.exec(filter)[0]) : []
         const contentFilterName = regExp.exec(content)[0]
-
-        // console.log(stateFilterNames)
 
         if (!stateFilterNames.includes(contentFilterName)) {
             this.setState({
@@ -58,6 +60,44 @@ class App extends Component {
             background: content.background,
         }, () => console.log(this.state.background))
     }
+    changeSolidBgColor = (content) => {
+        console.log(content)
+        this.setState({
+            background: {
+                ...this.state.background,
+                solid: {
+                    ...this.state.background.solid,
+                    color: content
+                }
+                
+            }
+        }, () => console.log(this.state.background))
+    }
+    changeSolidBgOpacity = (content) => {
+        this.setState({
+            background: {
+                ...this.state.background,
+                solid: {
+                    ...this.state.background.solid,
+                    opacity: content
+                }
+                
+            }
+        }, () => console.log(this.state.background))
+    }
+    changeSolidBlendMode = (content) => {
+        console.log(content)
+        this.setState({ 
+            background: {
+                ...this.state.background,
+                solid: {
+                    ...this.state.background.solid,
+                    blendMode: content
+                }
+                
+            }
+        })
+    }
     render() {
         return (
             <ThemeProvider theme={theme}>
@@ -66,6 +106,7 @@ class App extends Component {
                         <ImageDisplay 
                             filters={this.state.filters} 
                             background={this.state.background}
+                            isSolidBg={(this.state.background.currentSelectedBgType === "solid") ? true : false}
                         />
                     </div>
                     <div className="rightSection">
@@ -74,6 +115,11 @@ class App extends Component {
                             handleDisplayPreset={this.displayPreset}
                         />
                         <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
+                        <CustomBackground 
+                            handleChangeBgOpacity={this.changeSolidBgOpacity}
+                            handleChangeBgColor={this.changeSolidBgColor}
+                            handleSelectBgBlendMode={this.changeSolidBlendMode}
+                        />
                     </div>
                 </StyledApp>
             </ThemeProvider>

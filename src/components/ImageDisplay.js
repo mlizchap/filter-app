@@ -42,8 +42,8 @@ const StyledImageDisplay = styled.div`
     img {
         width: 100%;
         filter: ${props => props.filters};
-        opacity: ${props => (props.background) ? (1 - props.background.solid.opacity || 1 - props.background.gradient.opacity) : 1 }
-
+        opacity: ${props => (props.isSolidBg) ? (1 - props.background.solid.opacity) : (1 - props.background.gradient.opacity)};
+        mix-blend-mode: ${props => (props.isSolidBg) ? props.background.solid.blendMode : props.background.gradient.blendMode}
     }
 
 `
