@@ -28,13 +28,13 @@ const bgDefaults = {
 export const presetData = [
     {
         name: "orange",
-        filters: [],
+        filters: ["grayscale(.2) blur(6px)"],
         background: {
             ...bgDefaults,
-            solid: {
-                color: "orange",
-                opacity: .4
-            },
+            // solid: {
+            //     color: "orange",
+            //     opacity: .4
+            // },
             currentSelectedBgType: "solid"
         }
     }

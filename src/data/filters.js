@@ -1,4 +1,4 @@
-export const filters = 
+export const filterData = 
 [
     {
         "name": "grayscale",

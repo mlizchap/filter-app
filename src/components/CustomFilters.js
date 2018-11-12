@@ -2,38 +2,40 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { Slider } from './styles/Slider'
-import { filters } from '../data/filters';
+import { filterData } from '../data/filters';
 
 class CustomFilters extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            filterDisplay: "none"
+            filterValues: filterData,
+
         };
     }
-    changeSliderValue = (e, filterName) => {
-        // console.log(e.target.value, filterName)
-        const filterValues = this.state.filterValues.map(filter => {
-            return (filter.name === filterName) ? {...filter, value: e.target.value} : filter 
-        })
-        const currentFilter= this.state.filterValues.filter(i => i.name === filterName)[0]
+    // changeSliderValue = (e, filterName) => {
+    //     // console.log(e.target.value, filterName)
+    //     const filterValues = this.state.filterValues.map(filter => {
+    //         return (filter.name === filterName) ? {...filter, value: e.target.value} : filter 
+    //     })
+    //     const currentFilter= this.state.filterValues.filter(i => i.name === filterName)[0]
 
-        this.setState({ filterValues }, 
-            () => this.props.handleChangeFilterValue(`${filterName}(${currentFilter.value}${currentFilter.unit})`))
-    }
-    componentWillMount = () => {
-        this.setState({ filterValues: filters}, () => console.log(this.state.filterValues))
-    }
-    toggleFilters = () => {
-        this.setState({ filterDisplay: (this.state.filterDisplay === "none") ? "block" : "none"})
-    }
+    //     this.setState({ filterValues }, 
+    //         () => this.props.handleChangeFilterValue(`${filterName}(${currentFilter.value}${currentFilter.unit})`))
+    // }
+    // toggleFilters = () => {
+    //     this.setState({ filterDisplay: (this.state.filterDisplay === "none") ? "block" : "none"})
+    // }
+    // checkForPresetVal = (filter) => {
+    //     const presetFiltersFound = this.state.presetFilters.filter(filterObj => filterObj.name === filter.name).map(i => i.value);
+    //     return (presetFiltersFound.length > 0) ?  parseInt(presetFiltersFound[0]) : filter.value
+    // }
     render() {
+        // console.log(this.props.activeFilters)
         return (
             <StyledFilterContainer displayFilters={this.state.filterDisplay}>
                 <div className="heading" onClick={this.toggleFilters}>FILTERS</div>
                 <div className="filters">
                     {this.state.filterValues.map(filter => {
-                        
                         return (
                             <div key={filter.name} className="sliderContainer">
                                 <span className="sliderName">{filter.name}</span>
@@ -47,6 +49,7 @@ class CustomFilters extends Component {
                                     min={filter.min}
                                     max={filter.max}
                                     step={filter.step}
+                                    value={filter.value}
                                     value={filter.value}
                                 />
                             </div> 

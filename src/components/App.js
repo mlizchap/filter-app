@@ -7,6 +7,7 @@ import PresetSection from './PresetSection';
 import {theme} from '../globalStyles';
 import CustomFilters from './CustomFilters';
 import CustomBackground from './CustomBackgroundSection';
+import { filterData } from '../data/filters';
 
 
 
@@ -14,6 +15,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = { 
+            filterObjects: filterData,
             filters: [],
             background: { 
                 solid: { 
@@ -89,8 +91,8 @@ class App extends Component {
                 
             }
         }, () => console.log(this.state))
-
     }
+
     renderGradientCSS = () => {
         const string="";
         const { outer, inner } = this.state.background.gradient;
@@ -100,8 +102,36 @@ class App extends Component {
         const currentSelectedBgType = (selectedType === "Solid Color" ? "solid" : selectedType.toLowerCase())
         this.setState({ background: {...this.state.background, currentSelectedBgType} })
     }
+    getCurrentAndDefaultFilters = () => {
+        const parsedActiveFilterObjects = this.parseActiveFilters();
+        const parsedActiveFilterNames = this.parseActiveFilters().map(i => i.name);
+
+        const updatedFilters = this.state.filterObjects.map(filter => {
+            if (parsedActiveFilterNames.includes(filter.name)) {
+                return {
+                    ...filter,
+                    value: parsedActiveFilterObjects.filter(obj => obj.name === filter.name)[0].value
+                }
+            } else {
+                return filter
+            }
+        })
+
+        console.log(updatedFilters);
+
+
+    }
+    parseActiveFilters = () => {
+        const filters =  (this.state.filters.length > 0) ? this.state.filters[0].split(" ") : null;
+
+        return (filters) ? filters.map(i => {
+            return { 
+                name: i.split('(')[0],
+                value: i.split('(')[1].slice(0, -1)
+            }
+        }) : []
+    }
     render() {
-        // (this.state.background.currentSelectedBgType === "solid") ? console.log(this.state.background.solid.color) : console.log("X")
         return (
             <ThemeProvider theme={theme}>
                 <StyledApp>
@@ -114,15 +144,6 @@ class App extends Component {
                             background={this.state.background}
                             filters={this.state.filters}
                             currentSelectedBgType={this.state.background.currentSelectedBgType}
-                            // opacity={parseFloat(this.state.background[this.state.background.currentSelectedBgType].opacity).toFixed(2)}
-                            
-                            
-                            // background={
-                            //     this.state.background.currentSelectedBgType === "solid" ? this.state.background.solid.color[0] 
-                            //     : this.state.background.currentSelectedBgType === "gradient" ? this.renderGradientCSS()
-                            //     : null
-                            // }
-                            // background={this.state.currentSelectedBgType === "solid" ? this.state.background.solid.color[0] : null}
                         />
                     </div>
                     <div className="rightSection">
@@ -130,7 +151,6 @@ class App extends Component {
                         <PresetSection 
                             handleDisplayPreset={this.displayPreset}
                         />
-
 
                         <div>
                         <CustomBackground 
@@ -141,7 +161,10 @@ class App extends Component {
                         </div>
 
                         <div>
-                        <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
+                        <CustomFilters 
+                            handleChangeFilterValue={this.changeFilterValue}
+                            currentAndDefaultFilters={this.getCurrentAndDefaultFilters()}
+                        />
                         </div>
                     </div>
                 </StyledApp>

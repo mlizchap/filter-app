@@ -55,7 +55,7 @@ class CodeDisplay extends Component {
                                     <span className="codeIndent">
                                         <span className="prop">filter: </span> 
                                         { this.props.filters.map((filter, index) => {
-                                            return (index === this.props.filters.length - 1) ? <span className="val">{filter};</span> : <span className="val">{filter} </span>
+                                            return (index === this.props.filters.length - 1) ? <span key={filter} className="val">{filter};</span> : <span key={filter} className="val">{filter} </span>
                                         }) }
                                     </span> : null }
 
