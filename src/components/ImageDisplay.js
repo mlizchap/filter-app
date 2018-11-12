@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 const pic1 = require('../static/pic1.jpg')
 // const pic2 = require('../static/pic2.jpg')
@@ -22,6 +23,11 @@ class ImageDisplay extends Component {
 
 export default ImageDisplay;
 
+const innerColor = (props) => (!_.isEmpty(props.background.gradient)) ? props.background.gradient.inner.color : null;
+const outerColor = (props) => (!_.isEmpty(props.background.gradient)) ? props.background.gradient.outer.color : null;
+
+
+
 const StyledImageDisplay = styled.div`
     text-align: center;
     display: flex;
@@ -29,14 +35,21 @@ const StyledImageDisplay = styled.div`
 
     .container {
         width: 300px;
+        background: ${props => (props.background) ? props.background.solid.color : null};
+        background-image: radial-gradient(${innerColor} 20%, ${outerColor} 80%);
     }
 
     img {
         width: 100%;
-        filter: ${props => props.filters}
+        filter: ${props => props.filters};
+        opacity: ${props => (props.background) ? (1 - props.background.solid.opacity || 1 - props.background.gradient.opacity) : 1 }
+
     }
 
 `
+
+        // background: ${props => props.background.solid.color};
+
 // const outerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.color : `gray`;
 // const outerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.amount : `80%`;
 

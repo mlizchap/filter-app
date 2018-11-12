@@ -5,30 +5,75 @@ import ImageDisplay from './ImageDisplay';
 import CodeDisplay from './CodeDisplay';
 import PresetSection from './PresetSection';
 import {theme} from '../globalStyles';
-
+import CustomFilters from './CustomFilters'
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            filters: []
+            filters: [],
+            background: { 
+                solid: { 
+                    color: "none",
+                    opacity: null
+                },
+                gradient: {
+                    inner: {
+                        color: "",
+                        amount: ""
+                    },
+                    outer: {
+                        color: "",
+                        amount: ""
+                    },
+                    opacity: null
+                }                
+            },
+
          };
     }
+    changeFilterValue = (content) => {
+        console.log(content)
+        const regExp =  /^[^\(]+/; // to get text before parens (this filter name)
+        const stateFilterNames = (this.state.filters.length >  0) ? this.state.filters.map(filter => regExp.exec(filter)[0]) : []
+        const contentFilterName = regExp.exec(content)[0]
+
+        // console.log(stateFilterNames)
+
+        if (!stateFilterNames.includes(contentFilterName)) {
+            this.setState({
+                filters: [...this.state.filters, content]
+            })
+        } else {
+            const filters = this.state.filters.map(filter => {
+                return (regExp.exec(filter)[0] === regExp.exec(content)[0]) ? content : filter
+            })
+            this.setState({ filters })
+        }
+    }
     displayPreset = (content) => {
-        this.setState({ filters: content.filters})
+        console.log(content)
+        this.setState({ 
+            filters: content.filters,
+            background: content.background,
+        }, () => console.log(this.state.background))
     }
     render() {
         return (
             <ThemeProvider theme={theme}>
                 <StyledApp>
                     <div className="leftSection">
-                        <ImageDisplay filters={this.state.filters}/>
+                        <ImageDisplay 
+                            filters={this.state.filters} 
+                            background={this.state.background}
+                        />
                     </div>
                     <div className="rightSection">
                         <CodeDisplay />
                         <PresetSection 
                             handleDisplayPreset={this.displayPreset}
                         />
+                        <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
                     </div>
                 </StyledApp>
             </ThemeProvider>

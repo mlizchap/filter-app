@@ -11,25 +11,18 @@ class PresetSection extends Component {
         this.state = {
             previewContent: {},
             selectedContent: {},
-            preview: true
         }
     }
 
-    selectPreset = (preset) => {
-        const presetDetail = presetData.filter(item => item.name === preset)[0];
+    updateStateBasedOnDropDown = (activePreset, stateToUpdate) => {
+        const presetDetail = presetData.filter(item => item.name === activePreset)[0];
         this.setState({
-            selectedContent: {
-                filters: presetDetail.filters
+            [stateToUpdate]: {
+                filters: presetDetail.filters,
+                background: presetDetail.background, 
             }
-        }, () => this.props.handleDisplayPreset(this.state.selectedContent))
-    }
-    previewPreset = (preset) => {
-        const presetDetail = presetData.filter(item => item.name === preset)[0];
-        this.setState({
-            previewContent: {
-                filters: presetDetail.filters
-            }
-        }, () => this.props.handleDisplayPreset(this.state.previewContent))
+        }, () => this.props.handleDisplayPreset(this.state[stateToUpdate]))
+
     }
     removePreview = () => {
         // if an iitem is selected, display the selected item, if not, show default values
@@ -47,8 +40,8 @@ class PresetSection extends Component {
                 <DropDownMenu 
                     contentItems={presetData.map(preset => preset.name)}
                     defaultValue="none"
-                    handlePreview={this.previewPreset}
-                    handleSelect={this.selectPreset}
+                    handlePreview={(presetHovered) => this.updateStateBasedOnDropDown(presetHovered, 'previewContent')}
+                    handleSelect={(presetSelected) =>  this.updateStateBasedOnDropDown(presetSelected, 'selectedContent')}
                     handleRemovePreview={this.removePreview}
                     {...this.props}
                 />
