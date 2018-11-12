@@ -22,6 +22,9 @@ class DropDownMenu extends Component {
             () => this.props.handleSelect(this.state.currentContent)
         )
     }
+    hoverItem = (e) => {
+        this.props.handlePreview(e.target.innerHTML)
+    }
     render() {
         return (
             <DropDownMenuStyle contentDisplay={this.state.display} {...this.props}>
@@ -40,7 +43,7 @@ class DropDownMenu extends Component {
                                 )
                             } else {
                                 return (
-                                    <div key={item} className="item activeItem" onClick={this.selectContent}>
+                                    <div key={item} className="item activeItem" onClick={this.selectContent} onMouseEnter={this.hoverItem}>
                                         {item}
                                     </div>
                                 )
@@ -86,7 +89,7 @@ const DropDownMenuStyle = styled.div`
         font-size: ${props => props.fontSize};
         font-family: ${props => props.font}
         z-index: 5;
-        height: 200px;
+        max-height: 200px;
         overflow: scroll;
     }
     .activeItem {
@@ -110,10 +113,11 @@ const DropDownMenuStyle = styled.div`
 `
 
 DropDownMenu.defaultProps = {
-    handleSelect: (selected) => console.log("you have chosen", selected),
     contentItems: ["item1", "item2", "item3"],
     defaultValue: "select",
-    displayCurrentOnTop: true
+    displayCurrentOnTop: true,
+    handleSelect: (selected) => console.log("you have chosen", selected),
+    handlePreview: (content) => console.log("previewed", content)
 
 }
 DropDownMenuStyle.defaultProps = {

@@ -9,32 +9,18 @@ const pic1 = require('../static/pic1.jpg')
 
 
 class ImageDisplay extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  };
-    }
     render() {
         return (
             <StyledImageDisplay {...this.props}>
                     <div className="container">
                         <img src={pic1} />
                     </div>
-
-                
-
             </StyledImageDisplay>
         );
     }
 }
 
 export default ImageDisplay;
-
-const outerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.color : `gray`;
-const outerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.amount : `80%`;
-
-const innerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.color : `gray`;
-const innerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.amount : `20%`;
-
 
 const StyledImageDisplay = styled.div`
     text-align: center;
@@ -43,38 +29,30 @@ const StyledImageDisplay = styled.div`
 
     .container {
         width: 300px;
-        background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'};
-        background-image: radial-gradient(${(props) => innerColor(props)} ${(props) => innerAmount(props)}, ${(props) => outerColor(props)} ${(props) => outerAmount(props)});
     }
 
     img {
-        // display:
-        width: 50%;
-        filter: ${props => props.imageStyle.filters};
-        opacity: ${props => (props.imageStyle.background) ? props.imageStyle.background.opacity : 'none'};
-        mix-blend-mode: ${props => (props.imageStyle.background) ? props.imageStyle.background.mixBlendMode : 'none'};
+        width: 100%;
+        filter: ${props => props.filters}
     }
+
 `
+// const outerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.color : `gray`;
+// const outerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.amount : `80%`;
 
+// const innerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.color : `gray`;
+// const innerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.amount : `20%`;
 
-    // .img {
-    //     background-image: url("${pic3}");
-    //     background-size: 300px 300px;
-    //     filter: ${props => props.imageStyle.filters};
-    // }
-    // .img:before {
-    //     width: 300px;
-    //     height: 300px;
-    //     display: block;
-    //     position: relative;
-    //     content: "";
-    //     opacity: ${props => (props.imageStyle.background) ? props.imageStyle.background.opacity : 'none'};
-    //     background-color: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'};
-    //     background-image: radial-gradient(${(props) => color1(props)} ${(props) => color1Amt(props)}, ${(props) => color2(props)} ${(props) => color2Amt(props)});
-    //     mix-blend-mode: ${props => (props.imageStyle.background) ? props.imageStyle.background.mixBlendMode : 'none'};
-    // }
-//filter: ${props => props.imageStyle.filters};
+// .container {
+//     width: 300px;
+//     background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'};
+//     background-image: radial-gradient(${(props) => innerColor(props)} ${(props) => innerAmount(props)}, ${(props) => outerColor(props)} ${(props) => outerAmount(props)});
+// }
 
-        //opacity: ${props => props.imageStyle.opactiy}      
-        //background-image: radial-gradient(${props => props.imageStyle.background.radialGradiant.color1.color} ${props => props.imageStyle.background.radialGradiant.color1.amout}, ${props => props.imageStyle.background.radialGradiant.color2.color}, ${props => props.imageStyle.background.radialGradiant.color2.amount});
-        //mix-blend-mode: ${props => props.imageStyle.background.blendMode};
+// img {
+//     // display:
+//     width: 50%;
+//     filter: ${props => props.imageStyle.filters};
+//     opacity: ${props => (props.imageStyle.background) ? props.imageStyle.background.opacity : 'none'};
+//     mix-blend-mode: ${props => (props.imageStyle.background) ? props.imageStyle.background.mixBlendMode : 'none'};
+// }
