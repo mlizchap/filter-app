@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import ColorPicker from './ColorPicker';
-import { Slider } from './styles/Slider';
-import DropdownMenu from './DropdownMenu';
-import {blendModes} from '../data/blendModes';
+import ColorPicker from '../ColorPicker';
+import { Slider } from '../styles/Slider';
+import DropdownMenu from '../DropdownMenu';
+import {blendModes} from '../../data/blendModes';
+import GradientColorControls from './GradientColorControls';
 
 class CustomBackground extends Component {
     constructor(props) {
@@ -47,7 +48,6 @@ class CustomBackground extends Component {
                         </button>
                         <div className="sectionContent">
                             <div className="colorSection">
-                                <span style={{fontSize: '10pt', marginBottom: '50px'}}>color:</span>
                                 <ColorPicker handleSelectColor={this.selectSolidBgColor}/>
                             </div>
                             <div>
@@ -91,58 +91,10 @@ class CustomBackground extends Component {
                     >
                         Gradient
                     </button>
-                    <div className="sectionContent">
-                        <div>outer color:</div>
-                            <div><ColorPicker /></div>
-                            <div>
-                                <span>opacity</span>
-                                <Slider 
-                                    type="range" 
-                                    thumbColor="#533bdb"
-                                    thumbBorder="#527f59"
-                                    trackerColor="#3d3d3d"
-                                />
-                                <span>amount(%)</span>
-                                <Slider 
-                                    type="range" 
-                                    thumbColor="#533bdb"
-                                    thumbBorder="#527f59"
-                                    trackerColor="#3d3d3d"
-                                />
-                            </div>
-                            
-                            <div className="blendMode">
-                                <span style={{fontSize: '10pt', marginBottom: '5px'}}>blend mode:</span>
-                                <DropdownMenu 
-                                    width="100"
-                                    buttonColor="#533bdb"
-                                    buttonFontColor="white"
-                                    contentColor="#d0ccea"
-                                    contentFontColor="#533bdb"
-                                    contentHighlight="#efedf9"
-                                    font={props => props.theme.titleFont}
-                                    contentItems={blendModes}
-                                    defaultValue="normal"
-                                    handleSelect={(selected) => this.props.handleSelectBgBlendMode(selected)}
-                                />
-                        </div>
-
-                    </div>
-                        {/* <div className="gradientPickers">
-                            <div style={{ fontSize: '8pt', marginRight: '15px'}}>Outer:<ColorPicker /></div>
-                            <div style={{ fontSize: '8pt'}}>Inner:<ColorPicker /></div>
-                        </div>
-                        <div>opacity
-                            <Slider 
-                                type="range" 
-                                thumbColor="#533bdb"
-                                thumbBorder="#527f59"
-                                trackerColor="#3d3d3d"
-                            />
-                        </div>
-                        <div>Blend Mode</div>
-                    </div> */}
+                    <GradientColorControls gradientName="outer" {...this.props} />
+                    <GradientColorControls gradientName="inner" {...this.props} />
                 </div>
+
             </StyledCustomBackroundSection>
         );
     }
@@ -161,6 +113,9 @@ const StyledCustomBackroundSection = styled.div`
         padding: 15px;
         display: flex;
         justify-content: space-between;
+    }
+    .colorSection {
+        margin-top: auto;
     }
     .outerGradient {
         display: flex;

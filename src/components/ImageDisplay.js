@@ -29,11 +29,11 @@ class ImageDisplay extends Component {
 
 export default ImageDisplay;
 
-const color1 = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient) ? props.imageStyle.background.radialGradient.color1.color : `none`;
-const color1Amt = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient) ? props.imageStyle.background.radialGradient.color1.amount : `none`;
+const outerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.color : `none`;
+const outerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.amount : `none`;
 
-const color2 = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient) ? props.imageStyle.background.radialGradient.color2.color : `none`;
-const color2Amt = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient) ? props.imageStyle.background.radialGradient.color2.amount : `none`;
+const innerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.color : `none`;
+const innerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.amount : `none`;
 
 
 const StyledImageDisplay = styled.div`
@@ -43,12 +43,13 @@ const StyledImageDisplay = styled.div`
 
     .container {
         width: 300px;
-        background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'}
-        background-image: radial-gradient(${(props) => color1(props)} ${(props) => color1Amt(props)}, ${(props) => color2(props)} ${(props) => color2Amt(props)});
+        background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'};
+        background-image: radial-gradient(${(props) => outerColor(props)} ${(props) => outerAmount(props)}, ${(props) => innerColor(props)} ${(props) => innerAmount(props)});
     }
 
     img {
-        width: 100%;
+        // display:
+        width: 50%;
         filter: ${props => props.imageStyle.filters};
         opacity: ${props => (props.imageStyle.background) ? props.imageStyle.background.opacity : 'none'};
         mix-blend-mode: ${props => (props.imageStyle.background) ? props.imageStyle.background.mixBlendMode : 'none'};

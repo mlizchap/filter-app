@@ -15,11 +15,11 @@ export const presets = [
         background: {
             opacity: .75,
             radialGradient: {
-                color1: {
+                outer: {
                     color: "rgba(206, 39, 70, .75)",
                     amount: "40%"
                 },
-                color2: {
+                inner: {
                     color: "black",
                     amount: "80%"
                 }

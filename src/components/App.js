@@ -4,7 +4,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import {theme} from '../globalStyles';
 import ImageDisplay from './ImageDisplay';
 import Header from './Header';
-import CustomBackground from './CustomBackgound';
+import CustomBackground from './CustomBackgroundSection';
 import CustomFilters from './CustomFilters';
 import Presets from './Presets';
 import CodeDisplay from './CodeDisplay';
@@ -87,6 +87,68 @@ class App extends Component {
             savedStyle: { ...this.state.savedStyle, background: {...this.state.savedStyle.background, opacity: `${1 - Number(opacityValue)};` }}
         }, () => console.log(this.state))
     }
+    changeBgBlendMode = (blendMode) => {
+        this.setState({ 
+            savedStyle: { ...this.state.savedStyle, background: {...this.state.savedStyle.background, mixBlendMode: `${blendMode};` }}
+        }, () => console.log(this.state))
+    }
+    changeGradientAmount = (gradientName, value) => {
+        // console.log(gradientName, value)
+    }
+    changeGradientColor = (gradientName, color) => {
+            this.setState({ 
+                savedStyle: {
+                    background: {
+                        radialGradient: {
+                            inner: {
+                                color: `pink`,
+                                amount: "50%"
+                            },
+                            outer: {
+                                color: "black",
+                                amount: "50%"
+                            },
+                        }
+                    } 
+                } 
+            }, () => console.log(this.state.savedStyle))
+        // if (this.objectIsEmpty(this.state.savedStyle)) {
+        //     this.setState({ 
+        //         savedStyle: {
+        //             background: {
+        //                 radialGradient: {
+        //                     [colorObj1]: {
+        //                         color: `${color};`,
+        //                         amount: "50%"
+        //                     },
+        //                     [colorObj2]: {
+        //                         color: "black",
+        //                         amount: "50%"
+        //                     },
+        //                 }
+        //             } 
+        //         } 
+        //     })
+        // } else {
+        //     this.setState({ 
+        //         savedStyle: { 
+        //             ...this.state.savedStyle, 
+        //             background: {
+        //                 ...this.state.savedStyle.background, backgroundColor: `${color};`,
+        //                 radialGradient: {
+        //                     ...this.state.radialGradient,
+        //                     [colorObj]: {
+        //                         ...this.state[colorObj1],
+        //                         color: `${color};`,
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }, () => console.log(this.state))
+        // }
+    }
+
+    
     render() {
         //console.log(this.state.currentStyle)
         return (
@@ -105,6 +167,9 @@ class App extends Component {
                         <CustomBackground 
                             handleChangeBgColor={this.changeBgColor}
                             handleChangeBgOpacity={this.changeBgOpacity}
+                            handleSelectBgBlendMode={this.changeBgBlendMode}
+                            handleChangeGradientAmount={this.changeGradientAmount}
+                            handleGradientColorChange={this.changeGradientColor}
                         />
                     </div>
                 </StyledApp>
