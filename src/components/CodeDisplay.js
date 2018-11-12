@@ -59,7 +59,7 @@ class CodeDisplay extends Component {
                                         }) }
                                     </span> : null }
 
-                                {this.props.background[this.props.background.currentSelectedBgType].opacity ? 
+                                {this.props.background[this.props.background.currentSelectedBgType].opacity && this.props.background[this.props.background.currentSelectedBgType].opacity !== 1 ? 
                                     <span className="codeIndent">
                                         <span className="prop">opacity: </span> 
                                         <span className="val">{this.round(this.props.background[this.props.background.currentSelectedBgType].opacity, 2)};</span>

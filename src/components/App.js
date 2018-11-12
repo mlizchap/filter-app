@@ -34,7 +34,7 @@ class App extends Component {
                 }, 
                 none: {
                     color: "white",
-                    // opacity: 1,
+                    opacity: 1,
                     blendMode: "normal"
                 },
                 currentSelectedBgType: "none"                
@@ -58,6 +58,7 @@ class App extends Component {
         }
     }
     displayPreset = (content) => {
+        console.log(content)
         this.setState({ 
             filters: content.filters,
             background: content.background,

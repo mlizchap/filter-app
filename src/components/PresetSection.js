@@ -21,6 +21,7 @@ class PresetSection extends Component {
                 filters: presetDetail.filters,
                 background: presetDetail.background, 
             }
+        // }, () => console.log(this.state))
         }, () => this.props.handleDisplayPreset(this.state[stateToUpdate]))
 
     }
