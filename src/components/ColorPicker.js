@@ -2,9 +2,9 @@
 
 import React from 'react'
 import reactCSS from 'reactcss'
-import { SketchPicker } from 'react-color'
+import { ChromePicker } from 'react-color'
 
-class ColorSelect extends React.Component {
+class ColorPicker extends React.Component {
   state = {
     displayColorPicker: false,
     color: {
@@ -34,9 +34,9 @@ class ColorSelect extends React.Component {
     const styles = reactCSS({
       'default': {
         color: {
-          width: '14px',
+          width: '36px',
           height: '14px',
-          borderRadius: '50%',
+          borderRadius: '2px',
           background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
         },
         swatch: {
@@ -68,7 +68,7 @@ class ColorSelect extends React.Component {
         </div>
         { this.state.displayColorPicker ? <div style={ styles.popover }>
           <div style={ styles.cover } onClick={ this.handleClose }/>
-          <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
+          <ChromePicker color={ this.state.color } onChange={ this.handleChange } />
         </div> : null }
 
       </div>
@@ -76,8 +76,8 @@ class ColorSelect extends React.Component {
   }
 }
 
-export default ColorSelect;
+export default ColorPicker;
 
-ColorSelect.defaultProps = {
+ColorPicker.defaultProps = {
     handleSelectColor: (color) => console.log(color)
 }

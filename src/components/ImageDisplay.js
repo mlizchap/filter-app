@@ -42,12 +42,14 @@ const StyledImageDisplay = styled.div`
     justify-content: center;
 
     .container {
-        width: 150px;
+        width: 300px;
+        //background: orange;
+        background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'}
         background-image: radial-gradient(${(props) => color1(props)} ${(props) => color1Amt(props)}, ${(props) => color2(props)} ${(props) => color2Amt(props)});
     }
 
     img {
-        width: 100%;
+        width: 50%;
         filter: ${props => props.imageStyle.filters};
         opacity: ${props => (props.imageStyle.background) ? props.imageStyle.background.opacity : 'none'};
         mix-blend-mode: ${props => (props.imageStyle.background) ? props.imageStyle.background.mixBlendMode : 'none'};
