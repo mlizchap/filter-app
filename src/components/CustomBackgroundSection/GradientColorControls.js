@@ -33,6 +33,9 @@ class GradientColorControls extends Component {
                                 thumbColor="#533bdb"
                                 thumbBorder="#527f59"
                                 trackerColor="#3d3d3d"
+                                min={this.props.min}
+                                max={this.props.max}
+                                defaultValue={(this.props.min + this.props.max) / 2}
                                 onChange={this.changeGradientAmount}
                             />
                         </div>

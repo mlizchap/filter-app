@@ -91,8 +91,8 @@ class CustomBackground extends Component {
                     >
                         Gradient
                     </button>
-                    <GradientColorControls gradientName="inner" {...this.props} />
-                    <GradientColorControls gradientName="outer" {...this.props} />
+                    <GradientColorControls gradientName="inner" min={0} max={40} {...this.props} />
+                    <GradientColorControls gradientName="outer" min={-90} max={-50} {...this.props} />
                 </div>
 
             </StyledCustomBackroundSection>

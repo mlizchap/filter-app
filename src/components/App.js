@@ -85,23 +85,38 @@ class App extends Component {
     changeBgOpacity = (opacityValue) => {
         this.setState({ 
             savedStyle: { ...this.state.savedStyle, background: {...this.state.savedStyle.background, opacity: `${1 - Number(opacityValue)};` }}
-        }, () => console.log(this.state))
+        })
     }
     changeBgBlendMode = (blendMode) => {
         this.setState({ 
             savedStyle: { ...this.state.savedStyle, background: {...this.state.savedStyle.background, mixBlendMode: `${blendMode};` }}
-        }, () => console.log(this.state))
+        })
     }
-    changeGradientAmount = (gradientName, value) => {
-        // console.log(gradientName, value)
+    changeGradientAmount = (name, amount) => {
+        console.log(amount)
+        if (this.state.savedStyle.background) {
+            this.setState({ 
+                savedStyle: { 
+                    ...this.state.savedStyle, 
+                    background: {
+                        ...this.state.savedStyle.background,
+                        radialGradient: {
+                            ...this.state.savedStyle.background.radialGradient,
+                            [name]: {
+                                ...this.state.savedStyle.background.radialGradient[name],
+                                amount: (name === "outer") ? `${amount * -1}%` : `${amount}%`
+                            }
+                        }
+                    }
+                }  
+            }, () => console.log(this.state.savedStyle.background.radialGradient))
+        }
     }
-    changeGradientColor = (name, color) => {
-        console.log("name: ", name, "color: ", color)
-        
+    changeGradientColor = (name, color) => {        
         if (this.objectIsEmpty(this.state.savedStyle)) {
             const defaultValues = {
                 inner: {
-                    color: "gray",
+                    color: "white",
                     amount: "20%"
                 },
                 outer: {
@@ -116,14 +131,13 @@ class App extends Component {
                             ...defaultValues,
                             [name]: {
                                 color: color,
-                                amount: "20%"
+                                amount: (name === "inner") ? "20%" : "80%"
                             }
                         }
                     } 
                 } 
             })
         } else {
-            //console.log(this.state.savedStyle.background.radialGradient)
             this.setState({ 
                 savedStyle: { 
                     ...this.state.savedStyle, 
@@ -137,25 +151,8 @@ class App extends Component {
                         }
                     }
                 }  
-            }, () => console.log(this.state.savedStyle.background.radialGradient)) 
+            })
         }
-        // } else {
-        //     this.setState({ 
-        //         savedStyle: { 
-        //             ...this.state.savedStyle, 
-        //             background: {
-        //                 ...this.state.savedStyle.background, backgroundColor: `${color};`,
-        //                 radialGradient: {
-        //                     ...this.state.radialGradient,
-        //                     [colorObj]: {
-        //                         ...this.state[colorObj1],
-        //                         color: `${color};`,
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }, () => console.log(this.state))
-        // }
     }
 
     
