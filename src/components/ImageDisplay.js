@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const pic1 = require('../static/pic1.jpg')
-const pic2 = require('../static/pic2.jpg')
-const pic3 = require('../static/pic3.jpg')
-const pic4 = require('../static/pic4.jpg')
-const pic5 = require('../static/pic5.jpg')
+// const pic2 = require('../static/pic2.jpg')
+// const pic3 = require('../static/pic3.jpg')
+// const pic4 = require('../static/pic4.jpg')
+// const pic5 = require('../static/pic5.jpg')
 
 
 class ImageDisplay extends Component {
@@ -17,7 +17,7 @@ class ImageDisplay extends Component {
         return (
             <StyledImageDisplay {...this.props}>
                     <div className="container">
-                        <img src={pic3} />
+                        <img src={pic1} />
                     </div>
 
                 
@@ -40,8 +40,9 @@ const StyledImageDisplay = styled.div`
     text-align: center;
     display: flex;
     justify-content: center;
+
     .container {
-        width: 300px;
+        width: 150px;
         background-image: radial-gradient(${(props) => color1(props)} ${(props) => color1Amt(props)}, ${(props) => color2(props)} ${(props) => color2Amt(props)});
     }
 
