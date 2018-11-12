@@ -29,11 +29,11 @@ class ImageDisplay extends Component {
 
 export default ImageDisplay;
 
-const outerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.color : `none`;
-const outerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.amount : `none`;
+const outerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.color : `gray`;
+const outerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.outer) ? props.imageStyle.background.radialGradient.outer.amount : `80%`;
 
-const innerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.color : `none`;
-const innerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.amount : `none`;
+const innerColor = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.color : `gray`;
+const innerAmount = (props) => (props.imageStyle.background && props.imageStyle.background.radialGradient && props.imageStyle.background.radialGradient.inner) ? props.imageStyle.background.radialGradient.inner.amount : `20%`;
 
 
 const StyledImageDisplay = styled.div`
@@ -44,7 +44,7 @@ const StyledImageDisplay = styled.div`
     .container {
         width: 300px;
         background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'};
-        background-image: radial-gradient(${(props) => outerColor(props)} ${(props) => outerAmount(props)}, ${(props) => innerColor(props)} ${(props) => innerAmount(props)});
+        background-image: radial-gradient(${(props) => innerColor(props)} ${(props) => innerAmount(props)}, ${(props) => outerColor(props)} ${(props) => outerAmount(props)});
     }
 
     img {

@@ -95,40 +95,50 @@ class App extends Component {
     changeGradientAmount = (gradientName, value) => {
         // console.log(gradientName, value)
     }
-    changeGradientColor = (gradientName, color) => {
+    changeGradientColor = (name, color) => {
+        console.log("name: ", name, "color: ", color)
+        
+        if (this.objectIsEmpty(this.state.savedStyle)) {
+            const defaultValues = {
+                inner: {
+                    color: "gray",
+                    amount: "20%"
+                },
+                outer: {
+                    color: "gray",
+                    amount: "80%"
+                }
+            }
             this.setState({ 
                 savedStyle: {
                     background: {
                         radialGradient: {
-                            inner: {
-                                color: `pink`,
-                                amount: "50%"
-                            },
-                            outer: {
-                                color: "black",
-                                amount: "50%"
-                            },
+                            ...defaultValues,
+                            [name]: {
+                                color: color,
+                                amount: "20%"
+                            }
                         }
                     } 
                 } 
-            }, () => console.log(this.state.savedStyle))
-        // if (this.objectIsEmpty(this.state.savedStyle)) {
-        //     this.setState({ 
-        //         savedStyle: {
-        //             background: {
-        //                 radialGradient: {
-        //                     [colorObj1]: {
-        //                         color: `${color};`,
-        //                         amount: "50%"
-        //                     },
-        //                     [colorObj2]: {
-        //                         color: "black",
-        //                         amount: "50%"
-        //                     },
-        //                 }
-        //             } 
-        //         } 
-        //     })
+            })
+        } else {
+            //console.log(this.state.savedStyle.background.radialGradient)
+            this.setState({ 
+                savedStyle: { 
+                    ...this.state.savedStyle, 
+                    background: {
+                        ...this.state.savedStyle.background,
+                        radialGradient: {
+                            ...this.state.savedStyle.background.radialGradient,
+                            [name]: {
+                                color: color
+                            }
+                        }
+                    }
+                }  
+            }, () => console.log(this.state.savedStyle.background.radialGradient)) 
+        }
         // } else {
         //     this.setState({ 
         //         savedStyle: { 
