@@ -30,7 +30,7 @@ class CustomFilters extends Component {
     render() {
         return (
             <StyledFilterContainer displayFilters={this.state.filterDisplay}>
-                <div className="heading" onClick={this.toggleFilters}>CUSTOMIZE FILTERS</div>
+                <div className="heading" onClick={this.toggleFilters}>filters</div>
                 <div className="filters">
                     {this.state.filterValues.map(filter => {
                         

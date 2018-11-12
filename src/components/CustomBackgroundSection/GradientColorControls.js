@@ -23,7 +23,7 @@ class GradientColorControls extends Component {
         return (
             <StyledGradientColorControls>
                 
-                    <div className="controls">
+                    <div className="controlRows">
                         <div><p className="controlName">{this.props.gradientName} color:</p></div>
                         <div className="colorPicker"><ColorPicker handleSelectColor={this.selectSolidGradientColor}/></div>
                         <div className="sliders">
@@ -39,7 +39,7 @@ class GradientColorControls extends Component {
                                 onChange={this.changeGradientAmount}
                             />
                         </div>
-                </div>
+                    </div>
             </StyledGradientColorControls>
         );
     }
@@ -48,7 +48,7 @@ class GradientColorControls extends Component {
 export default GradientColorControls;
 
 const StyledGradientColorControls = styled.div`
-    .controls {
+    .controlRows {
         display: flex;
         justify-content: space-around;
     }

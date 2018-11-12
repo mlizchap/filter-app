@@ -31,7 +31,7 @@ class CustomBackground extends Component {
     render() {
         return (
             <StyledCustomBackroundSection>
-                <div>Customize Background</div>
+                <div className="header">background</div>
 
                 <div className="buttons">
                     <button 
@@ -70,7 +70,7 @@ class CustomBackground extends Component {
                             onChange={this.selectOpacityValue}
                         />
                     </div>
-                    <div className="blendMode">
+                    <div className="blendModeSolid">
                         <span style={{fontSize: '10pt', marginBottom: '5px'}}>blend mode:</span>
                         <DropdownMenu 
                             width="100"
@@ -88,10 +88,45 @@ class CustomBackground extends Component {
                 </div>
 
                 <div className="section gradientSection" style={{ display: (this.state.selectedType === "Gradient") ? 'flex' : 'none' }}>
-                    <GradientColorControls gradientName="inner" min={0} max={40} {...this.props} />
-                    <GradientColorControls gradientName="outer" min={-90} max={-50} {...this.props} />
-                </div>
+                    <div className="controlRows">
+                        <GradientColorControls gradientName="inner" min={0} max={40} {...this.props} />
+                        <GradientColorControls gradientName="outer" min={-90} max={-50} {...this.props} />
+                    </div>
 
+                    <div className="controlRow">
+                        <div style={{ width: '50%' }}>
+                            <span style={{fontSize: '10pt'}}>opacity:</span>
+                            <Slider 
+                                type="range" 
+                                thumbColor="#533bdb"
+                                thumbBorder="#527f59"
+                                trackerColor="#3d3d3d"
+                                min={0}
+                                max={1}
+                                defaultValue={0.5}
+                                step={0.01}
+                                onChange={(e) => this.props.handleChangeBackground("gradient", "opacity",  1 - e.target.value)}
+                            />
+                        </div>
+                  
+
+                        <div className="blendModeGradient">
+                            <div className="blendModeGradientTitle">blend mode:</div>
+                            <DropdownMenu 
+                                width="100"
+                                buttonColor="#533bdb"
+                                buttonFontColor="white"
+                                contentColor="#d0ccea"
+                                contentFontColor="#533bdb"
+                                contentHighlight="#efedf9"
+                                font={props => props.theme.titleFont}
+                                contentItems={blendModes}
+                                defaultValue="normal"
+                                handleSelect={(selected) => this.props.handleChangeBackground("gradient", "blendMode", selected)}
+                            />
+                        </div>
+                    </div>
+                </div>
             </StyledCustomBackroundSection>
         );
     }
@@ -101,6 +136,9 @@ export default CustomBackground;
 
 const StyledCustomBackroundSection = styled.div`
     font-family: ${props => props.theme.titleFont};
+    .header {
+        text-align: center;
+    }
     .section {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -121,10 +159,26 @@ const StyledCustomBackroundSection = styled.div`
     .outerGradient {
         display: flex;
     }
-    .blendMode {
+    .blendModeSolid {
         display: flex;
         flex-direction: column;
     }
+    .blendModeGradient {
+        display: flex;
+        font-size: 10pt;
+        margin-top: auto;
+    }
+    .blendModeGradientTitle {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 5px;
+    }
+    .controlRow {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
     button {
         padding: 6px;
         border: none;
