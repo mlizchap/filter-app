@@ -43,13 +43,12 @@ const StyledImageDisplay = styled.div`
 
     .container {
         width: 300px;
-        //background: orange;
         background: ${props => (props.imageStyle.background) ? props.imageStyle.background.backgroundColor : 'none'}
         background-image: radial-gradient(${(props) => color1(props)} ${(props) => color1Amt(props)}, ${(props) => color2(props)} ${(props) => color2Amt(props)});
     }
 
     img {
-        width: 50%;
+        width: 100%;
         filter: ${props => props.imageStyle.filters};
         opacity: ${props => (props.imageStyle.background) ? props.imageStyle.background.opacity : 'none'};
         mix-blend-mode: ${props => (props.imageStyle.background) ? props.imageStyle.background.mixBlendMode : 'none'};

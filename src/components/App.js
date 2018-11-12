@@ -65,17 +65,27 @@ class App extends Component {
         
     }
     changeBgColor = (color) => {
-        console.log(color)
-        console.log(this.state.savedStyle)
+        // console.log(color)
+        // console.log(this.state.savedStyle)
         if (this.objectIsEmpty(this.state.savedStyle)) {
             this.setState({ 
                 savedStyle: {
                     background: {
-                        backgroundColor: `${color};` 
+                        backgroundColor: `${color};`,
+                        opacity: 0.5
                     } 
                 } 
-            }, () => console.log(this.state))
+            })
+        } else {
+            this.setState({ 
+                savedStyle: { ...this.state.savedStyle, background: {...this.state.savedStyle.background, backgroundColor: `${color};`}}
+            })
         }
+    }
+    changeBgOpacity = (opacityValue) => {
+        this.setState({ 
+            savedStyle: { ...this.state.savedStyle, background: {...this.state.savedStyle.background, opacity: `${1 - Number(opacityValue)};` }}
+        }, () => console.log(this.state))
     }
     render() {
         //console.log(this.state.currentStyle)
@@ -92,7 +102,10 @@ class App extends Component {
                         <Presets handlePreviewPreset={this.previewPreset} handleSetPreset={this.setPreset}/>
                         <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
 
-                        <CustomBackground handleChangeBgColor={this.changeBgColor}/>
+                        <CustomBackground 
+                            handleChangeBgColor={this.changeBgColor}
+                            handleChangeBgOpacity={this.changeBgOpacity}
+                        />
                     </div>
                 </StyledApp>
                 </div>

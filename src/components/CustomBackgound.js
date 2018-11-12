@@ -20,6 +20,9 @@ class CustomBackground extends Component {
         // console.log(color)
         this.props.handleChangeBgColor(color);
     }
+    selectOpacityValue = (e) => {
+        this.props.handleChangeBgOpacity(e.target.value)
+    }
     render() {
         return (
             <StyledCustomBackroundSection>
@@ -49,6 +52,11 @@ class CustomBackground extends Component {
                                     thumbColor="#533bdb"
                                     thumbBorder="#527f59"
                                     trackerColor="#3d3d3d"
+                                    min={0}
+                                    max={1}
+                                    defaultValue={0.5}
+                                    step={0.01}
+                                    onChange={this.selectOpacityValue}
                                 />
                             </div>
                             <div>Blend Mode</div>
