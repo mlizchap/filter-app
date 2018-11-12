@@ -15,12 +15,14 @@ class CustomBackground extends Component {
         };
     }
     changeSelectedType = (e) => {
-        this.setState({ selectedType: e.target.innerHTML}, 
-            () => this.props.handleChangeBackgroundType(this.state.selectedType)
-        )
+        if (this.state.selectedType === e.target.innerHTML) {
+            this.setState({ selectedType: "None" })
+        } else {
+            this.setState({ selectedType: e.target.innerHTML}, 
+                () => this.props.handleChangeBackgroundType(this.state.selectedType))    
+        }
     }
     selectSolidBgColor = (color) => {
-        // console.log(color)
         this.props.handleChangeBackground("solid", "color", color);
     }
     selectOpacityValue = (e) => {
@@ -31,67 +33,61 @@ class CustomBackground extends Component {
             <StyledCustomBackroundSection>
                 <div>Customize Background</div>
 
-                    <div className="section">
-                        <button 
-                                onClick={this.changeSelectedType}
-                                className={`${(this.state.selectedType === "None") ? `selected` : `notSelected`}`}
-                            >
-                                None
-                        </button>
-                    </div>
-
-                    <div className="section">
-                        <button 
-                                onClick={this.changeSelectedType}
-                                className={`${(this.state.selectedType === "Solid Color") ? `selected` : `notSelected`}`}
-                            >
-                                Solid Color
-                        </button>
-                        <div className="sectionContent">
-                            <div className="colorSection">
-                                <ColorPicker handleSelectColor={this.selectSolidBgColor}/>
-                            </div>
-                            <div>
-                                <span style={{fontSize: '10pt'}}>opacity:</span>
-                                <Slider 
-                                    type="range" 
-                                    thumbColor="#533bdb"
-                                    thumbBorder="#527f59"
-                                    trackerColor="#3d3d3d"
-                                    min={0}
-                                    max={1}
-                                    defaultValue={0.5}
-                                    step={0.01}
-                                    onChange={this.selectOpacityValue}
-                                />
-                            </div>
-                            <div>
-                                <div className="blendMode">
-                                    <span style={{fontSize: '10pt', marginBottom: '5px'}}>blend mode:</span>
-                                    <DropdownMenu 
-                                        width="100"
-                                        buttonColor="#533bdb"
-                                        buttonFontColor="white"
-                                        contentColor="#d0ccea"
-                                        contentFontColor="#533bdb"
-                                        contentHighlight="#efedf9"
-                                        font={props => props.theme.titleFont}
-                                        contentItems={blendModes}
-                                        defaultValue="normal"
-                                        handleSelect={(selected) => this.props.handleChangeBackground("solid", "blendMode", selected)}
-                                    />
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-
-                <div className="section">
+                <div className="buttons">
+                    <button 
+                        onClick={this.changeSelectedType}
+                        className={`${(this.state.selectedType === "Solid Color") ? `selected` : `notSelected`}`}
+                    >Solid Color    
+                    </button>
                     <button 
                         onClick={this.changeSelectedType}
                         className={`${(this.state.selectedType === "Gradient") ? `selected` : `notSelected`}`}
-                    >
-                        Gradient
+                    >Gradient
                     </button>
+                    <button 
+                        onClick={this.changeSelectedType}
+                        className={`${(this.state.selectedType === "None") ? `selected` : `notSelected`}`}
+                    >None
+                    </button>
+                </div>
+
+
+                <div className="section" style={{ display: (this.state.selectedType === "Solid Color") ? 'flex' : 'none' }}>
+                    <div className="colorSection">
+                        <ColorPicker handleSelectColor={this.selectSolidBgColor}/>
+                    </div>
+                    <div>
+                        <span style={{fontSize: '10pt'}}>opacity:</span>
+                        <Slider 
+                            type="range" 
+                            thumbColor="#533bdb"
+                            thumbBorder="#527f59"
+                            trackerColor="#3d3d3d"
+                            min={0}
+                            max={1}
+                            defaultValue={0.5}
+                            step={0.01}
+                            onChange={this.selectOpacityValue}
+                        />
+                    </div>
+                    <div className="blendMode">
+                        <span style={{fontSize: '10pt', marginBottom: '5px'}}>blend mode:</span>
+                        <DropdownMenu 
+                            width="100"
+                            buttonColor="#533bdb"
+                            buttonFontColor="white"
+                            contentColor="#d0ccea"
+                            contentFontColor="#533bdb"
+                            contentHighlight="#efedf9"
+                            font={props => props.theme.titleFont}
+                            contentItems={blendModes}
+                            defaultValue="normal"
+                            handleSelect={(selected) => this.props.handleChangeBackground("solid", "blendMode", selected)}
+                        />
+                    </div>
+                </div>
+
+                <div className="section gradientSection" style={{ display: (this.state.selectedType === "Gradient") ? 'flex' : 'none' }}>
                     <GradientColorControls gradientName="inner" min={0} max={40} {...this.props} />
                     <GradientColorControls gradientName="outer" min={-90} max={-50} {...this.props} />
                 </div>
@@ -106,17 +102,21 @@ export default CustomBackground;
 const StyledCustomBackroundSection = styled.div`
     font-family: ${props => props.theme.titleFont};
     .section {
-        // background-color: #d2ceea;
         margin-top: 10px;
         margin-bottom: 10px;
-    }
-    .sectionContent {
         padding: 15px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .buttons {
         display: flex;
         justify-content: space-between;
     }
     .colorSection {
         margin-top: auto;
+    }
+    .gradientSection {
+        flex-direction: column;
     }
     .outerGradient {
         display: flex;
