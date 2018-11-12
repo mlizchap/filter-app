@@ -36,7 +36,7 @@ export const presetData = [
     },
     {
         name: "test",
-        filters: ["sepia(.15)", "brightness(1.05)"],
+        filters: ["sepia(.15)", "grayscale(1)"],
         background: {
             solid: {
                 color: 'purple',

@@ -43,7 +43,7 @@ class DropDownMenu extends Component {
                                 )
                             } else {
                                 return (
-                                    <div key={item} className="item activeItem" onClick={this.selectContent} onMouseEnter={this.hoverItem}>
+                                    <div key={item} className="item activeItem" onClick={this.selectContent} onMouseEnter={this.hoverItem} onMouseLeave={this.props.handleRemovePreview}>
                                         {item}
                                     </div>
                                 )
@@ -117,7 +117,8 @@ DropDownMenu.defaultProps = {
     defaultValue: "select",
     displayCurrentOnTop: true,
     handleSelect: (selected) => console.log("you have chosen", selected),
-    handlePreview: (content) => console.log("previewed", content)
+    handlePreview: (content) => console.log("previewed", content),
+    handleRemovePreview: () => console.log("remove preview")
 
 }
 DropDownMenuStyle.defaultProps = {

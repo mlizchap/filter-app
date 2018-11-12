@@ -14,9 +14,8 @@ class App extends Component {
             filters: []
          };
     }
-    previewPreset = (content) => {
-        console.log(content)
-        this.setState({ filters: content})
+    displayPreset = (content) => {
+        this.setState({ filters: content.filters})
     }
     render() {
         return (
@@ -27,7 +26,9 @@ class App extends Component {
                     </div>
                     <div className="rightSection">
                         <CodeDisplay />
-                        <PresetSection handlePreviwPreset={this.previewPreset} />
+                        <PresetSection 
+                            handleDisplayPreset={this.displayPreset}
+                        />
                     </div>
                 </StyledApp>
             </ThemeProvider>
