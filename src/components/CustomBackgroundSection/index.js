@@ -30,26 +30,25 @@ class CustomBackground extends Component {
     }
     render() {
         return (
-            <StyledCustomBackroundSection>
-                <div className="header">background</div>
-
-                <div className="buttons">
-                    <button 
-                        onClick={this.changeSelectedType}
-                        className={`${(this.state.selectedType === "Solid Color") ? `selected` : `notSelected`}`}
-                    >Solid Color    
-                    </button>
-                    <button 
-                        onClick={this.changeSelectedType}
-                        className={`${(this.state.selectedType === "Gradient") ? `selected` : `notSelected`}`}
-                    >Gradient
-                    </button>
-                    <button 
-                        onClick={this.changeSelectedType}
-                        className={`${(this.state.selectedType === "None") ? `selected` : `notSelected`}`}
-                    >None
-                    </button>
-                </div>
+            <StyledCustomBackroundSection isExpanded={(this.state.selectedType === "None") ? false : true}>
+                <div className="header">BACKGROUND</div>
+                    <div className="buttons">
+                        <button 
+                            onClick={this.changeSelectedType}
+                            className={`${(this.state.selectedType === "Solid Color") ? `selected` : `notSelected`}`}
+                        >Solid Color    
+                        </button>
+                        <button 
+                            onClick={this.changeSelectedType}
+                            className={`${(this.state.selectedType === "Gradient") ? `selected` : `notSelected`}`}
+                        >Gradient
+                        </button>
+                        <button 
+                            onClick={this.changeSelectedType}
+                            className={`${(this.state.selectedType === "None") ? `selected` : `notSelected`}`}
+                        >None
+                        </button>
+                    </div>
 
 
                 <div className="section" style={{ display: (this.state.selectedType === "Solid Color") ? 'flex' : 'none' }}>
@@ -136,19 +135,33 @@ export default CustomBackground;
 
 const StyledCustomBackroundSection = styled.div`
     font-family: ${props => props.theme.titleFont};
+    background-color: #eceaf2;
+    height: 250px;
+    border: 2px solid #533bdb;
     .header {
         text-align: center;
+        padding: 8px;
+        background-color: #533bdb;
+        color: #b2a6f4;
+        font-size: 8pt;
+    }
+    .bgContent {
+        // background-color: #533bdb;
     }
     .section {
-        margin-top: 10px;
+        // margin-top: 10px;
         margin-bottom: 10px;
         padding: 15px;
         display: flex;
         justify-content: space-between;
+        background-color: #e4e0fc;
+        margin-right: 10px;
+        margin-left: 10px;
     }
     .buttons {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
+        padding-top: 15px;
     }
     .colorSection {
         margin-top: auto;
@@ -182,17 +195,17 @@ const StyledCustomBackroundSection = styled.div`
     button {
         padding: 6px;
         border: none;
-        border-radius: 3px;
+        border-radius: 3px 3px ${props => (!props.isExpanded) ? `3px` : `0px`} ${props => (!props.isExpanded) ? `3px` : `0px`};
         font-family: inherit;
         width: 100px;
         display: block;
     }
     .selected {
-        background-color: #533bdb;
-        color: white;
+        background-color: #e4e0fc;
+        color: #533bdb;
     }
     .notSelected {
-        background-color: #c6c6c6; 
-        color: #565656;
+        background-color: #533bdb;
+        color: white;
     }
 `

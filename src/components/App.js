@@ -17,24 +17,24 @@ class App extends Component {
             filters: [],
             background: { 
                 solid: { 
-                    color: "none",
+                    color: "rgba(215, 215, 224, 1)",
                     opacity: .5,
                     blendMode: "normal"
                 },
                 gradient: {
                     inner: {
-                        color: "",
-                        amount: ""
+                        color: "rgba(215, 215, 224, 1)",
+                        amount: "20%"
                     },
                     outer: {
-                        color: "rgba(208, 208, 208, 1)",
+                        color: "rgba(89, 89, 91,1)",
                         amount: "80%"
                     },
                     opacity: .5
                 }, 
                 none: {
                     color: "white",
-                    opacity: 1,
+                    // opacity: 1,
                     blendMode: "normal"
                 },
                 currentSelectedBgType: "none"                
@@ -64,7 +64,7 @@ class App extends Component {
         })
     }
     changeBGProps = (bgType, propName, value) => {
-        console.log(bgType, propName, value)
+        // console.log(bgType, propName, value)
         this.setState({
             background: {
                 ...this.state.background,
@@ -76,7 +76,7 @@ class App extends Component {
         })
     }
     changeGradientProps = (name, prop, value) => {
-        console.log(name, prop, value)
+        // console.log(name, prop, value)
         this.setState({ 
             background: {
                 ...this.state.background,
@@ -92,11 +92,17 @@ class App extends Component {
         })
 
     }
+    renderGradientCSS = () => {
+        const string="";
+        const { outer, inner } = this.state.background.gradient;
+        return `background-image: radial-gradient(${inner.color} ${inner.amount} ${outer.color} ${inner.amount})`
+    }
     changeBackgroundType = (selectedType) => {
         const currentSelectedBgType = (selectedType === "Solid Color" ? "solid" : selectedType.toLowerCase())
         this.setState({ background: {...this.state.background, currentSelectedBgType} }, () => console.log(this.state.background.currentSelectedBgType))
     }
     render() {
+        (this.state.background.currentSelectedBgType === "solid") ? console.log(this.state.background.solid.color) : console.log("X")
         return (
             <ThemeProvider theme={theme}>
                 <StyledApp>
@@ -105,18 +111,39 @@ class App extends Component {
                             filters={this.state.filters} 
                             bgType={this.state.background[this.state.background.currentSelectedBgType]}
 />
+                        <CodeDisplay 
+                            background={this.state.background}
+                            filters={this.state.filters}
+                            currentSelectedBgType={this.state.background.currentSelectedBgType}
+                            // opacity={parseFloat(this.state.background[this.state.background.currentSelectedBgType].opacity).toFixed(2)}
+                            
+                            
+                            // background={
+                            //     this.state.background.currentSelectedBgType === "solid" ? this.state.background.solid.color[0] 
+                            //     : this.state.background.currentSelectedBgType === "gradient" ? this.renderGradientCSS()
+                            //     : null
+                            // }
+                            // background={this.state.currentSelectedBgType === "solid" ? this.state.background.solid.color[0] : null}
+                        />
                     </div>
                     <div className="rightSection">
-                        <CodeDisplay />
+                       
                         <PresetSection 
                             handleDisplayPreset={this.displayPreset}
                         />
-                        <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
+
+
+                        <div>
                         <CustomBackground 
                             handleChangeBackground={this.changeBGProps}
                             handleChangeGradient={this.changeGradientProps}
                             handleChangeBackgroundType={this.changeBackgroundType}
                         />
+                        </div>
+
+                        <div>
+                        <CustomFilters handleChangeFilterValue={this.changeFilterValue}/>
+                        </div>
                     </div>
                 </StyledApp>
             </ThemeProvider>
@@ -139,7 +166,7 @@ const StyledApp = styled.div`
     .rightSection {
         display: flex;
         flex-direction: column;
-        // justify-content: space-around;
+        // justify-content: space-between;
         width: 100%;
         // background-color: #c7bad6;
     }

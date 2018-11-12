@@ -30,7 +30,7 @@ class CustomFilters extends Component {
     render() {
         return (
             <StyledFilterContainer displayFilters={this.state.filterDisplay}>
-                <div className="heading" onClick={this.toggleFilters}>filters</div>
+                <div className="heading" onClick={this.toggleFilters}>FILTERS</div>
                 <div className="filters">
                     {this.state.filterValues.map(filter => {
                         
@@ -67,8 +67,10 @@ const StyledFilterContainer = styled.div`
     font-family: ${props => props.theme.titleFont};
     .heading {
         background-color: #61c670;
+        color: #b4edbc;
         text-align: center;
-        padding: 5px;
+        padding: 8pt;
+        font-size: 9pt;
     }
     .sliderName {
         font-size: 8pt;
