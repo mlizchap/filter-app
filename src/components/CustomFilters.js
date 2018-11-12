@@ -8,9 +8,7 @@ class CustomFilters extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            filterValues: {
-
-            }
+            filterDisplay: "none"
         };
     }
     changeSliderValue = (e, filterName) => {
@@ -26,29 +24,35 @@ class CustomFilters extends Component {
     componentWillMount = () => {
         this.setState({ filterValues: filters}, () => console.log(this.state.filterValues))
     }
+    toggleFilters = () => {
+        this.setState({ filterDisplay: (this.state.filterDisplay === "none") ? "block" : "none"})
+    }
     render() {
         return (
-            <StyledFilterContainer>
-                {this.state.filterValues.map(filter => {
-                    
-                    return (
-                        <div key={filter.name} className="sliderContainer">
-                            <span className="sliderName">{filter.name}</span>
-                            <Slider 
-                                type="range"
-                                width="150px"
-                                thumbColor="blue"
-                                thumbBorder="pink"
-                                trackerColor="green"
-                                onChange={(e) => this.changeSliderValue(e, filter.name)}
-                                min={filter.min}
-                                max={filter.max}
-                                step={filter.step}
-                                value={filter.value}
-                            />
-                        </div> 
-                    )
-                })}
+            <StyledFilterContainer displayFilters={this.state.filterDisplay}>
+                <div className="heading" onClick={this.toggleFilters}>CUSTOMIZE FILTERS</div>
+                <div className="filters">
+                    {this.state.filterValues.map(filter => {
+                        
+                        return (
+                            <div key={filter.name} className="sliderContainer">
+                                <span className="sliderName">{filter.name}</span>
+                                <Slider 
+                                    type="range"
+                                    width="150px"
+                                    thumbColor="#61c670"
+                                    thumbBorder="#527f59"
+                                    trackerColor="#3d3d3d"
+                                    onChange={(e) => this.changeSliderValue(e, filter.name)}
+                                    min={filter.min}
+                                    max={filter.max}
+                                    step={filter.step}
+                                    value={filter.value}
+                                />
+                            </div> 
+                        )
+                    })}
+                </div>
 
             </StyledFilterContainer>
         );
@@ -58,15 +62,26 @@ class CustomFilters extends Component {
 export default CustomFilters;
 
 const StyledFilterContainer = styled.div`
-    background-color: #fff2c4;
-    font-family: ${props => props.theme.titleFont}
+    background-color: #eeffed;
+    
+    font-family: ${props => props.theme.titleFont};
+    .heading {
+        background-color: #61c670;
+        text-align: center;
+        padding: 5px;
+    }
     .sliderName {
         font-size: 8pt;
     }
+    .filters {
+        display: ${(props => props.displayFilters)};
+    
+    }
     .sliderContainer {
-        background-color: #fffaea;
+        // background-color: #fffaea;
         width: 80%;
         margin-left: auto;
         margin-right: auto;
     }
+
 `

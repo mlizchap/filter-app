@@ -98,13 +98,17 @@ const StyledApp = styled.div`
     display: flex;
     .leftSection {
         width: 100%;
-        background-color: #c9dce8;
+        // background-color: #c9dce8;
     }
     .rightSection {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        // justify-content: space-around;
         width: 100%;
-        background-color: #c7bad6;
+        // background-color: #c7bad6;
+    }
+    .rightSection > div {
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 `
